@@ -1,14 +1,51 @@
 import { useState } from 'react'
 import { LabelAndInput } from '../Form'
 import Button from '../Button'
+import { postFormData } from '../../utils/postFormData'
+import Alert from '../Alert'
 
 const SignupForm = () => {
   const [username, setUsername] = useState('')
   const [password1, setPassword1] = useState('')
   const [password2, setPassword2] = useState('')
+  const [errors, setErrors] = useState<string | string[]>("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setErrors("")
+
+    const formData = {
+      username,
+      password1,
+      password2,
+    }
+
+    const {
+      response,
+      result
+    } = await postFormData(formData, '/api/signup')
+
+    // Account not created successfully
+    if (response.status !== 200) {
+      setErrors(result.error)
+      return
+    }
+  }
+
+  const displayErrors = () => {
+    if (errors.length === 0) return
+
+    return typeof errors === 'string' ? (
+      <Alert type="danger">{errors}</Alert>
+    ) : (
+      errors.map((err, i) => (
+        <Alert key={i} type="danger">{err}</Alert>
+      ))
+    )
+  }
 
   return (
-    <form className="w-full sm:w-96">
+    <form className="w-full sm:w-96" onSubmit={handleSubmit}>
       <LabelAndInput
         label="Username"
         inputType="text"
@@ -37,6 +74,7 @@ const SignupForm = () => {
       >
         Create Account
       </Button>
+      {displayErrors()}
     </form>
   )
 }
