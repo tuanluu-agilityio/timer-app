@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useRouter } from 'next/router'
+
+// Components
 import { LabelAndInput } from '../Form'
 import Button from '../Button'
-import { postFormData } from '../../utils/postFormData'
 import Alert from '../Alert'
+
+// utils
+import { postFormData } from '../../utils/postFormData'
+import { harperFetchJWTTokens } from '../../utils/harperdb/fetchJWTTokens'
+
+// contexts
+import { UserContext } from '../../contexts/UserContext'
+
 
 const SignupForm = () => {
   const [username, setUsername] = useState('')
   const [password1, setPassword1] = useState('')
   const [password2, setPassword2] = useState('')
   const [errors, setErrors] = useState<string | string[]>("")
+
+  const user = useContext(UserContext)
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,6 +43,31 @@ const SignupForm = () => {
       setErrors(result.error)
       return
     }
+
+    // Account created successfully, get JWTs
+    try {
+      const { response, result } = await harperFetchJWTTokens(
+        username,
+        password1
+      )
+
+      const accessToken = result.operation_token
+      if (response.status === 200 && accessToken) {
+        authenticateUser(username, accessToken)
+      } else {
+        // Account created, but failed to get JWTs
+        // Redirect to login page
+        router.push('/login')
+      }
+    } catch (error) {
+      console.log(error)
+      setErrors("Whoops, something went wrong :(")
+    }
+  }
+
+  const authenticateUser = (username: string, accessToken: string) => {
+    user.setUsername(username)
+    localStorage.setItem('accessToken', accessToken)
   }
 
   const displayErrors = () => {
