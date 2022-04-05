@@ -67,7 +67,7 @@ const SignupForm = () => {
 
   const authenticateUser = (username: string, accessToken: string) => {
     user.setUsername(username)
-    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('access_token', accessToken)
   }
 
   const displayErrors = () => {
