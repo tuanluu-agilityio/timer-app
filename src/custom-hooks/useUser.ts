@@ -9,7 +9,7 @@ export const useUser = () => {
     if (username) return
 
     // Check for access token and try to log user in
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = localStorage.getItem('access_token')
     if (accessToken) {
       tryLogUserIn(accessToken)
     }
