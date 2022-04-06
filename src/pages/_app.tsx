@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { AppProps } from 'next/app'
 
 // styles
@@ -12,15 +11,20 @@ import { UserContext } from '../contexts/UserContext'
 
 // hooks
 import { useUser } from '../custom-hooks/useUser'
+import { useTasks } from '../custom-hooks/useTasks'
+import { TasksContext } from '../contexts/TasksContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { username, setUsername } = useUser()
+  const { tasks, setTasks, getAndSetTasks } = useTasks(username)
 
   return (
     <UserContext.Provider value={{ username, setUsername }}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <TasksContext.Provider value={{ tasks, setTasks, getAndSetTasks }}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </TasksContext.Provider>
     </UserContext.Provider>
   )
 }
