@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
+import Taskbar from '../components/home-page/Taskbar'
 
 const Home: NextPage = () => {
   return (
     <div>
-      <h1 className="text-red-500">Hello World</h1>
+      <Taskbar />
     </div>
   )
 }
