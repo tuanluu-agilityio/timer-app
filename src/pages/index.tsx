@@ -7,6 +7,7 @@ import Taskbar from '../components/home-page/Taskbar'
 import { Timer } from '../components/home-page/Timer'
 import Alert from '../components/Alert'
 import Link from '../components/Link'
+import LogOfRecentTaskTimes from '../components/home-page/LogOfRecentTaskTimes'
 
 const Home: NextPage = () => {
   const [selectedTaskId, setSelectedTaskId] = useState('')
@@ -37,6 +38,7 @@ const Home: NextPage = () => {
         selectedTaskId={selectedTaskId}
         setSelectedTaskId={setSelectedTaskId}
         setErrorMessage={setErrorMessage}
+        setSelectedTaskName={setSelectedTaskName}
         setSeconds={setSeconds}
         pauseTimer={pauseTimer}
       />
@@ -52,8 +54,11 @@ const Home: NextPage = () => {
         setErrorMessage={setErrorMessage}
         selectedTaskId={selectedTaskId}
       />
-
+      
       {errorMessage && <div className="text-red-500 mt-4">{errorMessage}</div>}
+      {recentTaskTimes.length > 0 && (
+        <LogOfRecentTaskTimes recentTaskTimes={recentTaskTimes} />
+      )}
     </div>
   )
 }

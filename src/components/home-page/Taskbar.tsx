@@ -8,6 +8,7 @@ interface Props {
   selectedTaskId: string
   setSelectedTaskId: React.Dispatch<React.SetStateAction<string>>
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>
+  setSelectedTaskName: React.Dispatch<React.SetStateAction<string>>
   setSeconds: React.Dispatch<React.SetStateAction<number>>
   pauseTimer: () => void
 }
@@ -16,6 +17,7 @@ const Taskbar = ({
   selectedTaskId,
   setSelectedTaskId,
   setErrorMessage,
+  setSelectedTaskName,
   setSeconds,
   pauseTimer
 }: Props) => {
@@ -34,6 +36,7 @@ const Taskbar = ({
     setSelectedTaskId(e.target.value)
     setSeconds(0)
     pauseTimer()
+    setSelectedTaskName(e.target.options[e.target.selectedIndex].text)
   }
 
   const handleClickAddNewTask = () => {
