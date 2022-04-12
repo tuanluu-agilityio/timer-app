@@ -23,7 +23,7 @@ const Navbar = () => {
           {username ? (
             <>
               <NavLink href="/">Timer</NavLink>
-              <NavLink href="/states">Stats</NavLink>
+              <NavLink href="/stats">Stats</NavLink>
               <button
                 onClick={handleLogout}
                 className="border py-1 px-3 ml-8 rounded hover:bg-green-700"
