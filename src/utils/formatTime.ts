@@ -46,3 +46,18 @@ const calculateSeconds = (secs: number) => {
   const seconds = Math.floor((secs % SECONDS_PER_HOUR) % SECONDS_PER_MINUTE)
   return seconds
 }
+
+export const displayTimeString = (secs: number) => {
+  const {
+    formattedHours,
+    formattedMinutes,
+    formattedSeconds,
+  } = formatTime(secs)
+  return `${formattedHours}h ${formattedMinutes}m ${formattedSeconds}s`
+}
+
+export const timestampToDayMonthYear = (timestamp: number) => {
+  const date = new Date(timestamp)
+  const formattedDate = date.toLocaleDateString()
+  return formattedDate
+}
