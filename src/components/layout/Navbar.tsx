@@ -38,6 +38,13 @@ const Navbar = () => {
                 <NavLink href="/signup">Signup</NavLink>
                 </>
             )}
+            <NavLink
+              extraClasses="text-yellow-200 hover:underline"
+              target="_blank"
+              href="https://github.com/tuanluu-agilityio/timer-app"
+            >
+              Github
+            </NavLink>
         </ul>
       </nav>
     </header>
@@ -47,13 +54,15 @@ const Navbar = () => {
 interface NavLinkProps {
   href: string
   children: string
+  extraClasses?: string
+  target?: string
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, children }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, children, extraClasses, target }) => {
   return (
     <li className="ml-8">
       <Link href={href}>
-        <a>{children}</a>
+        <a className={extraClasses} target={target}>{children}</a>
       </Link>
     </li>
   )
