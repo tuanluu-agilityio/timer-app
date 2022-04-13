@@ -16,7 +16,7 @@ const Login: NextPage = () => {
         </p>
       ) : (
         <>
-          <PageHeading extraClasses="text-center mb-8">Log in</PageHeading>
+          <PageHeading extraClasses="text-center text-green-500 mb-8 dark:text-slate-50">Log in</PageHeading>
           <LoginForm />
         </>
       )}

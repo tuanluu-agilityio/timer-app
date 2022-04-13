@@ -22,7 +22,7 @@ const Button: React.FC<Props> = ({
       colors = "bg-green-500 hover:bg-green-600"
       break
     case "warning":
-      colors = "bg-yellow-300 hover:bg-yellow-400 text-black"
+      colors = "bg-yellow-300 hover:bg-yellow-400 text-black dark:text-white"
       break
     case "secondary":
       colors = "bg-pink-500 hover:bg-pink-600"
@@ -31,7 +31,7 @@ const Button: React.FC<Props> = ({
       colors = "bg-red-500 hover:bg-red-600"
   }
 
-  const classes = `rounded text-white py-2 px-4 ${colors} ${extraClasses}`
+  const classes = `rounded text-white py-2 px-4 ${colors} ${extraClasses} dark:bg-gray-800`
 
   return (
     <button className={classes} type={type} onClick={handleClick}>
