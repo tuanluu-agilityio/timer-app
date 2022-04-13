@@ -18,7 +18,7 @@ const Signup: NextPage = () => {
         <Alert type="success">You are logged in as {username}</Alert>
       ) : (
         <>
-          <PageHeading extraClasses="text-center mb-8">
+          <PageHeading extraClasses="text-center text-green-500 mb-8 dark:text-slate-50">
             Create an account
           </PageHeading>
           <SignupForm />

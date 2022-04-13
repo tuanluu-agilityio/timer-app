@@ -92,7 +92,10 @@ export const Timer: React.FC<TimerProps> = ({
             </Button>
           </>
         ) : (
-          <Button color="success" handleClick={handleStartTimer}>
+          <Button 
+            color="success" 
+            handleClick={handleStartTimer}
+          >
             Start
           </Button>
         )}
@@ -111,7 +114,7 @@ export const Timer: React.FC<TimerProps> = ({
       {(seconds > 0 || isTimerOn) && (
         <button
           onClick={handleResetTimer}
-          className="underline underline-offset-2 mt-8 cursor-pointer text-gray-500 mx-auto block"
+          className="underline underline-offset-2 mt-8 cursor-pointer text-gray-500 mx-auto block dark:text-white"
         >
           Reset
         </button>

@@ -1,22 +1,49 @@
 import Link from "next/link"
-import { ReactChild, useContext } from "react"
+import { ReactChild, ReactNode, useContext, useEffect, useState } from "react"
+import { useTheme } from "next-themes"
 import { SITE_TITLE } from "../../constants/constants"
 import { UserContext } from "../../contexts/UserContext"
+import { MoonIcon, SunIcon } from "@heroicons/react/solid"
+import Logo from "../Logo"
 
 const Navbar = () => {
   const { username, setUsername } = useContext(UserContext)
+  const {
+    systemTheme,
+    theme,
+    setTheme
+  } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem("access_token")
     setUsername("")
   }
 
+  const renderThemeChanges = () => {
+    if (!mounted) return null
+
+    const currentTheme = theme === "system" ? systemTheme : theme
+
+    if (currentTheme === "light") {
+      return (
+        <MoonIcon className="w-5 h-5 fill-white-200" role="button" onClick={() => setTheme("dark")} />
+      )
+    } else {
+      return (
+        <SunIcon className="w-5 h-5 fill-white-200" role="button" onClick={() => setTheme("light")} />
+      )
+    }
+  }
+
   return (
-    <header className="flex justify-between items-center bg-green-600 text-white py-4 px-4">
+    <header className="flex justify-between items-center bg-green-600 text-white py-4 px-4 dark:bg-black">
       <h2 className="text-lg">
-        <Link href="/">
-          <a>{SITE_TITLE}</a>
-        </Link>
+        <Logo siteTitle={SITE_TITLE}/>
       </h2>
       <nav>
         <ul className="flex items-center">
@@ -38,8 +65,12 @@ const Navbar = () => {
                 <NavLink href="/signup">Signup</NavLink>
                 </>
             )}
+            <NavLink title={theme === "light" ? "Dark Mode" : "Light Mode"}>
+              {renderThemeChanges()}
+            </NavLink>
             <NavLink
               target="_blank"
+              title="Github"
               href="https://github.com/tuanluu-agilityio/timer-app"
             >
               <span className="sr-only">Super Simple Task Timer on Github</span>
@@ -54,18 +85,23 @@ const Navbar = () => {
 }
 
 interface NavLinkProps {
-  href: string
-  children: ReactChild | ReactChild[]
+  href?: string
+  children: ReactNode
   extraClasses?: string
   target?: string
+  title?: string
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, children, extraClasses, target }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, children, extraClasses, target, title }) => {
   return (
     <li className="ml-8">
-      <Link href={href}>
-        <a className={extraClasses} target={target}>{children}</a>
-      </Link>
+      {href ? (
+        <Link href={href}>
+          <a className={extraClasses} target={target} title={title}>{children}</a>
+        </Link>
+      ) : (
+        <a className={extraClasses} target={target} title={title}>{children}</a>
+      )}
     </li>
   )
 }
