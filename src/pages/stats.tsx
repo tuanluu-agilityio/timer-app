@@ -42,7 +42,7 @@ const Stats: NextPage = () => {
         </Alert>
       )}
 
-      <Header extraClasses='mb-6 text-center mt-8'>Stats</Header>
+      <Header extraClasses='mb-6 text-center text-green-500 mt-8 dark:text-slate-50'>Stats</Header>
 
       {errorMessage && (
         <p className="text-center text-red-500 mb-8">{errorMessage}</p>
@@ -50,7 +50,7 @@ const Stats: NextPage = () => {
 
       <div className="overflow-x-auto">
         <table className="table-auto border-collapse border border-slate-400 w-full sm:w-3/4 mx-auto">
-          <thead className="bg-slate-100 text-left">
+          <thead className="bg-slate-100 text-left dark:bg-green-500">
             <tr>
               <TH>Task</TH>
               <TH>Total Time</TH>
@@ -70,7 +70,7 @@ const Stats: NextPage = () => {
                   <TD>
                     <button
                       onClick={() => handleDeleteRow(task.id)}
-                      className="bg-red-500 text-white rounded px-3 py-1"
+                      className="bg-red-500 text-white rounded px-3 py-1 dark:bg-green-500"
                     >
                       x
                     </button>

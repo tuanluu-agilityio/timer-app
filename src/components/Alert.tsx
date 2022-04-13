@@ -19,7 +19,7 @@ const Alert = ({ children, type, key, extraClasses }: Props) => {
       break
   }
 
-  const classes = `text-white text-center p-2 rounded mt-4 ${color} ${extraClasses}`
+  const classes = `text-white text-center p-2 rounded mt-4 ${color} ${extraClasses} dark:bg-amber-200`
 
   return (
     <div className={classes} key={key}>
